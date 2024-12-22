@@ -1,0 +1,135 @@
+caribbean-crop-helper-app/
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml            # GitHub Actions for CI/CD (linting, tests, builds)
+├── .gitignore
+├── README.md                    # High-level documentation and "getting started" guide
+├── package.json                 # Root-level dependencies (scripts for dev, build, etc.)
+├── pnpm-lock.yaml               # or yarn.lock (depending on your package manager)
+├── tsconfig.base.json           # Shared TypeScript config for the entire monorepo
+
+├── apps/
+│   ├── frontend/
+│   │   ├── package.json
+│   │   ├── svelte.config.js
+│   │   ├── tailwind.config.cjs
+│   │   ├── postcss.config.cjs
+│   │   ├── tsconfig.json
+│   │   ├── vite.config.js
+│   │   └── src/
+│   │       ├── app.d.ts
+│   │       ├── app.html                # Svelte app HTML template
+│   │       ├── main.ts                 # Entry point for Svelte
+│   │       ├── global.css              # Global stylesheet imports (Tailwind, DaisyUI)
+│   │       ├── routes/
+│   │       │   ├── +layout.svelte      # (Optional) SvelteKit layout
+│   │       │   ├── +page.svelte        # Homepage or root route
+│   │       │   ├── soil/
+│   │       │   │   └── +page.svelte    # Soil analysis page
+│   │       │   ├── weather/
+│   │       │   │   └── +page.svelte    # Weather monitoring page
+│   │       │   ├── market/
+│   │       │   │   └── +page.svelte    # Market prices page
+│   │       │   ├── ml/
+│   │       │   │   └── +page.svelte    # Frontend interface for AI-based features
+│   │       ├── lib/
+│   │       │   ├── components/
+│   │       │   │   ├── Navbar.svelte
+│   │       │   │   ├── Footer.svelte
+│   │       │   │   ├── ImageUploader.svelte
+│   │       │   │   ├── ModelOutput.svelte
+│   │       │   │   └── WeatherCard.svelte
+│   │       │   ├── stores/
+│   │       │   │   ├── index.ts        # Central export for Svelte writable/derived stores
+│   │       │   │   └── userStore.ts    # Example for user authentication data
+│   │       │   ├── utils/
+│   │       │   │   ├── apiClient.ts    # Axios or fetch wrapper for microservices
+│   │       │   │   └── helpers.ts
+│   │       └── service-worker.ts       # Service worker (Workbox or custom for PWA)
+│   └── backend-gateway/
+│       ├── package.json
+│       ├── tsconfig.json
+│       ├── src/
+│       │   ├── server.ts               # Express/Fastify or similar - single gateway endpoint
+│       │   └── routes/
+│       │       └── index.ts            # Possibly merges microservices or proxies them
+│       └── Dockerfile                  # Container for the gateway
+
+├── services/
+│   ├── weather-service/
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   ├── src/
+│   │   │   ├── index.ts                # Main entry point (Express/Fastify server)
+│   │   │   ├── controllers/
+│   │   │   │   └── weatherController.ts
+│   │   │   ├── services/
+│   │   │   │   └── weatherLogic.ts
+│   │   │   └── models/
+│   │   │       └── weatherTypes.ts
+│   │   └── Dockerfile
+│   ├── market-service/
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   ├── src/
+│   │   │   ├── index.ts
+│   │   │   ├── controllers/
+│   │   │   │   └── marketController.ts
+│   │   │   ├── services/
+│   │   │   │   └── marketLogic.ts
+│   │   │   └── models/
+│   │   │       └── marketTypes.ts
+│   │   └── Dockerfile
+│   ├── soil-service/
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   ├── src/
+│   │   │   ├── index.ts
+│   │   │   ├── controllers/
+│   │   │   │   └── soilController.ts
+│   │   │   ├── services/
+│   │   │   │   └── soilLogic.ts
+│   │   │   └── models/
+│   │   │       └── soilTypes.ts
+│   │   └── Dockerfile
+│   └── ml-service/
+│       ├── package.json
+│       ├── tsconfig.json
+│       ├── src/
+│       │   ├── index.ts
+│       │   ├── controllers/
+│       │   │   └── mlController.ts
+│       │   ├── services/
+│       │   │   ├── modelInference.ts   # Example: TensorFlow.js or bridging to Python
+│       │   │   └── dataPreprocessing.ts
+│       │   └── models/
+│       │       └── mlTypes.ts
+│       ├── models/                     # ML models folder (if serving .tflite or .bin)
+│       │   ├── plant_disease_model.tflite
+│       │   └── soil_analysis_model.tflite
+│       └── Dockerfile
+
+├── packages/
+│   ├── shared-types/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   │   └── index.ts                # Shared TypeScript interfaces (WeatherData, MarketData, etc.)
+│   └── shared-utils/
+│       ├── package.json
+│       ├── src/
+│       │   └── index.ts                # Shared utility functions
+│       └── tsconfig.json
+
+├── infra/
+│   ├── docker/
+│   │   └── docker-compose.yml          # Or multiple Compose files for local dev
+│   ├── k8s/
+│   │   ├── deployment.yaml             # Kubernetes manifests
+│   │   ├── service.yaml
+│   │   └── ingress.yaml
+│   └── terraform/                      # (Optional) For IaC if you prefer Terraform
+
+└── docs/
+    ├── architecture.md                 # Explanation of microservices, data flows
+    ├── api-reference.md               # REST/GraphQL endpoints
+    └── design-system.md               # Explains how DaisyUI + Tailwind are used
